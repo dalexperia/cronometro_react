@@ -1,5 +1,6 @@
 import style from "./Lista.module.scss";
 import Item from "./Item";
+import { useState } from "react";
 
 export interface Tarefas {
     tarefa: string;
@@ -7,7 +8,7 @@ export interface Tarefas {
 }
 
 export default function Lista() {
-    const tarefas: Array<Tarefas> = [
+    const [tarefas, setTarefas] = useState([
         {
             tarefa: "React",
             tempo: "02:00:00"
@@ -20,11 +21,13 @@ export default function Lista() {
             tarefa: "Ruby Rails",
             tempo: "02:30:00"
         }
-    ];
+    ]);
 
     return (
         <aside className={style.listaTarefas}>
-            <h2>Tarefas do Dia</h2>
+            <h2 onClick={() => {
+                setTarefas([...tarefas, {tarefa: "Estados", tempo:"05:00:00"}]);
+            }}>Tarefas do Dia</h2>
                 <ul>
                     {tarefas.map((acao,index) => 
                         (
