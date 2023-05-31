@@ -12,14 +12,6 @@ export default function Lista() {
         {
             tarefa: "React",
             tempo: "02:00:00"
-        },
-        {
-            tarefa: "JavaScript",
-            tempo: "01:30:00"
-        },
-        {
-            tarefa: "Ruby Rails",
-            tempo: "02:30:00"
         }
     ]);
 
