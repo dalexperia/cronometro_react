@@ -1,18 +1,35 @@
 import React from "react";
 import Botao from "../Button";
 import style from "./Formulario.module.scss";
+import { Tarefas } from "../Lista";
+import { v4 as uuidv4 } from "uuid";
 
-export default class Formulario extends React.Component {
-    state = {
+export default class Formulario extends React.Component<{setTarefas: React.Dispatch<React.SetStateAction<Tarefas[]>>}> {
+
+    state: Tarefas = {
         tarefa:"",
-        tempo:"00:00"
+        tempo:"00:00",
+        selecionado: true,
+        completado: true,
+        id:''
     }
     render(): React.ReactNode {
         return (
-            <form className={style.novaTarefa} onSubmit={ e => {
+            <form 
+            className={style.novaTarefa} 
+            onSubmit={ e => {
                 e.preventDefault();
-                console.log("State: ", this.state);
-            }}>
+                this.props.setTarefas(tarefasantingas => [...tarefasantingas,
+                    {...this.state, selecionado:false, completado:false, id: uuidv4()}]);
+                this.setState({
+                    tarefa:"",
+                    tempo:"00:00",
+                    selecionado: true,
+                    completado: true,
+                    id:''
+                })
+            }}
+            >
                 <div className={style.inputContainer}>
                     <label>Adicione um novo estudo</label>
                     <input 
@@ -41,7 +58,7 @@ export default class Formulario extends React.Component {
                         required
                         />
                 </div>
-                <Botao>Adicionar</Botao>
+                <Botao type="submit">Adicionar</Botao>
             </form>
         );
     }

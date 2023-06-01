@@ -1,30 +1,30 @@
 import style from "./Lista.module.scss";
 import Item from "./Item";
-import { useState } from "react";
 
 export interface Tarefas {
     tarefa: string;
     tempo: string;
+    selecionado: boolean;
+    completado: boolean;
+    id: string;
 }
 
-export default function Lista() {
-    const [tarefas, setTarefas] = useState([
-        {
-            tarefa: "React",
-            tempo: "02:00:00"
-        }
-    ]);
+interface Props {
+    tarefas: Tarefas[];
+    selecionaTarefa: (t: Tarefas) => void;
+}
 
+export default function Lista({tarefas, selecionaTarefa}: Props ) {
+  
     return (
         <aside className={style.listaTarefas}>
-            <h2 onClick={() => {
-                setTarefas([...tarefas, {tarefa: "Estados", tempo:"05:00:00"}]);
-            }}>Tarefas do Dia</h2>
+            <h2>Tarefas do Dia</h2>
                 <ul>
-                    {tarefas.map((acao,index) => 
+                    {tarefas.map(acao => 
                         (
                             <Item 
-                                key={acao.tarefa}
+                                selecionaTarefa={selecionaTarefa}
+                                key={acao.id}
                                {...acao}
                             />     
                         )
